@@ -27,7 +27,7 @@ revolution_frequency = 1.25e6
 unit_factor = 1e-3
 
 # Tune for the case where the control system signal is in physics units
-tune_physics = BetatronTuneMonitor(name, (tune_h_read_name, tune_v_read_name), epics_signal_r, View.PHYSICS, revolution_frequency)
+tune_physics = BetatronTuneMonitor(name, (tune_h_read_name, tune_v_read_name), epics_signal_r, View.PHYSICS, revolution_frequency, unit_factor)
 
 # Tune for the case where the control system signal is in hardware units
 tune_hardware = BetatronTuneMonitor(name, (freq_h_read_name, freq_v_read_name), epics_signal_r, View.HARDWARE, revolution_frequency, unit_factor)
@@ -37,14 +37,14 @@ async def main():
     await tune_hardware.connect()
 
     print("PV in physics units:")
-    print(f"\nFull read: {await tune_physics.read()}")
+    print(f"Full read: {await tune_physics.read()}")
     print(f"\nHor tune: {await tune_physics.hor.tune.get_value()}")
     print(f"Ver tune: {await tune_physics.ver.tune.get_value()}")
 
-    print("PV in hardware units:")
-    print(f"\nFull read: {await tune_hardware.read()}")
-    print(f"\nHor tune: {await tune_hardware.hor.tune.get_value()}")
-    print(f"Ver tune: {await tune_hardware.ver.tune.get_value()}")
+    print("\nPV in hardware units:")
+    print(f"Full read: {await tune_hardware.read()}")
+    print(f"\nHor tune: {await tune_hardware.hor.frequency.get_value()}")
+    print(f"Ver tune: {await tune_hardware.ver.frequency.get_value()}")
 
 if __name__ == "__main__":
     asyncio.run(main())
