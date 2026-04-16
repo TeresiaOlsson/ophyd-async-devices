@@ -35,8 +35,16 @@ tune_hardware = BetatronTuneMonitor(name, (freq_h_read_name, freq_v_read_name), 
 async def main():
     await tune_physics.connect()
     await tune_hardware.connect()
-    print(f"Tune physics: {await tune_physics.read()}\n")
-    print(f"Tune hardware: {await tune_hardware.read()}\n")
+
+    print("PV in physics units:")
+    print(f"\nFull read: {await tune_physics.read()}")
+    print(f"\nHor tune: {await tune_physics.hor.tune.get_value()}")
+    print(f"Ver tune: {await tune_physics.ver.tune.get_value()}")
+
+    print("PV in hardware units:")
+    print(f"\nFull read: {await tune_hardware.read()}")
+    print(f"\nHor tune: {await tune_hardware.hor.tune.get_value()}")
+    print(f"Ver tune: {await tune_hardware.ver.tune.get_value()}")
 
 if __name__ == "__main__":
     asyncio.run(main())
