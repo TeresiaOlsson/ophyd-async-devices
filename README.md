@@ -1,5 +1,16 @@
 Examples for a tune device for EPICS and TANGO using ophyd-async.
 
+### Installation
+
+This is needed:
+
+````
+pip install ophyd-async[ca,tango]
+pip install pytest
+```
+
+Pytest is needed because of a bug I found in the TANGO backend. I have reported it.
+
 ### BESSY II example
 
 1. Start twin with `apptainer run oras://registry.hzdr.de/digital-twins-for-accelerators/containers/pyat-softioc-digital-twin:default-v0-5-1-bessy.2711893`
